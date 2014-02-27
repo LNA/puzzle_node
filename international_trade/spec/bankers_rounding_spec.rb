@@ -16,4 +16,18 @@ describe "BankersRounding" do
       bankers_rounding.is_a_floating_point_number?.should == false
     end
   end
+
+  context '#round_to_nearest_even_number' do
+    it "returns 24 for 23.5 " do
+      bankers_rounding = BankersRounding.new(23.5)
+
+      bankers_rounding.round_to_nearest_even_number.should == 24
+    end
+
+    it "returns 24 for 24.5" do 
+      bankers_rounding = BankersRounding.new(24.5)
+
+      bankers_rounding.round_to_nearest_even_number.should == 24
+    end
+  end
 end
