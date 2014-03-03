@@ -3,7 +3,8 @@ require 'csv'
 require 'nokogiri'
 
 class SalesConverter
-  FIND_SKU = :DM1182
+  SKU = :DM1182
+  WANTED_CONVERSION_RATE = :USD
 
   def initialize(csv_file, xml_file)
     @csv_file = csv_file
@@ -36,7 +37,7 @@ class SalesConverter
   end
 
   def convert_to_float
-    @transactions = output_transactions_for(FIND_SKU)
+    @transactions = output_transactions_for(SKU)
     @transactions.each do |t|
       t[:amount] = t[:amount].to_f
     end
@@ -44,12 +45,14 @@ class SalesConverter
   end
 
   def convert_to_usd
+    require 'pry'
+    binding.pry
 
     @transactions = convert_to_float
 
     @transactions.each do |transaction|
-      while transaction[:currency] != :USD 
-        transaction[:amount] = transaction[:amount] * @rates[transaction[:currency]][0][1]
+      while transaction[:currency] != WANTED_CONVERSION_RATE 
+        transaction[:amount] = transaction[:amount] * @rates[transaction[:currency]][0][1] 
         transaction[:currency] =  @rates[transaction[:currency]][0][0] 
       end
       @usd_transactions << transaction
