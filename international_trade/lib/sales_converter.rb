@@ -3,6 +3,7 @@ require 'csv'
 require 'nokogiri'
 
 class SalesConverter
+  FIND_SKU = :DM1182
 
   def initialize(csv_file, xml_file)
     @csv_file = csv_file
@@ -35,7 +36,7 @@ class SalesConverter
   end
 
   def convert_to_float
-    @transactions = output_transactions_for(:DM1182)
+    @transactions = output_transactions_for(FIND_SKU)
     @transactions.each do |t|
       t[:amount] = t[:amount].to_f
     end
