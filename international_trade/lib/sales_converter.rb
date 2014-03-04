@@ -28,7 +28,8 @@ class SalesConverter
     Nokogiri::XML(File.open(@xml_file)).css('rate').each do |rate|
      original_dollar_rate = rate.css('from').text.to_sym
      @rates[original_dollar_rate] ||= [] # if key isn't assigned a value set it equal to []
-     @rates[original_dollar_rate] << [rate.css('to').text.to_sym, rate.css('conversion').text.to_f]
+     @rates[original_dollar_rate] << rate.css('to').text.to_sym 
+     @rates[original_dollar_rate] << rate.css('conversion').text.to_f
     end
   end
 
@@ -42,22 +43,6 @@ class SalesConverter
       t[:amount] = t[:amount].to_f
     end
     @transactions 
-  end
-
-  def convert_to_usd
-    require 'pry'
-    binding.pry
-
-    @transactions = convert_to_float
-
-    @transactions.each do |transaction|
-      while transaction[:currency] != WANTED_CONVERSION_RATE 
-        transaction[:amount] = transaction[:amount] * @rates[transaction[:currency]][0][1] 
-        transaction[:currency] =  @rates[transaction[:currency]][0][0] 
-      end
-      @usd_transactions << transaction
-    end
-    @usd_transactions
   end
 
   def total_sales_for_item_in_USD_after_bankers_rounding
