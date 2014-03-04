@@ -4,9 +4,8 @@ class FileParser
 
     Nokogiri::XML(File.open(file)).css('rate').each do |rate|
      original_dollar_rate = rate.css('from').text.to_sym
-     @rates[original_dollar_rate] ||= [] # if key isn't assigned a value set it equal to []
-     @rates[original_dollar_rate] << rate.css('to').text.to_sym
-     @rates[original_dollar_rate] << rate.css('conversion').text.to_f
+     @rates[original_dollar_rate] ||= {} 
+     @rates[original_dollar_rate] = {rate.css('to').text.to_sym => rate.css('conversion').text.to_f}
     end
     @rates
   end

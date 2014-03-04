@@ -5,12 +5,20 @@ class CurrencyConverter
   end
 
   def conversion_rate(from, to)
-    converstion_rate = @rates[from][to]
+    to = to.to_sym
+    from = from.to_sym
 
-    if !converstion_rate
-      indirect_conversion(from,to)
+    if @rates[from][0] == to 
+      converstion_rate = @rates[from][1]
     else
-      conversion_rate
+      indirect_conversion(from, to)
     end
+    converstion_rate
+  end
+
+  def indirect_conversion(from, to)
+    require 'pry'
+    binding.pry
+
   end
 end

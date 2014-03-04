@@ -3,42 +3,22 @@ require 'csv'
 require 'nokogiri'
 
 class SalesConverter
+  attr_accessor :rates, :transactions
+
+  def initialize(parsed_xml_file, parsed_csv_file)
+    @rates = parsed_xml_file
+    @transactions = parsed_csv_file
+  end
+
   SKU = :DM1182
   WANTED_CONVERSION_RATE = :USD
 
-  def initialize(csv_file, xml_file)
-    @csv_file = csv_file
-    @xml_file = xml_file
-    @transactions = []
-    @rates = {}
-    @usd_transactions = []
-  end
- 
-  def convert_csv
-    CSV.foreach(@csv_file, :headers => true) do |row|
-      amount, currency = row['amount'].split
-      @transactions << { store: row['store'].to_sym, sku: row['sku'].to_sym, amount: amount, currency: currency.to_sym }
-    end
-    @transactions
-  end
-
-  def convert_rates
-    @rates = {}
-
-    Nokogiri::XML(File.open(@xml_file)).css('rate').each do |rate|
-     original_dollar_rate = rate.css('from').text.to_sym
-     @rates[original_dollar_rate] ||= [] # if key isn't assigned a value set it equal to []
-     @rates[original_dollar_rate] << rate.css('to').text.to_sym 
-     @rates[original_dollar_rate] << rate.css('conversion').text.to_f
-    end
-  end
-
-  def output_transactions_for(sku_symbol)
-    @transactions.find_all {|t| t[:sku] == sku_symbol}
+  def output_transactions_for_sku
+    @transactions.find_all {|t| t[:sku] == SKU}
   end
 
   def convert_to_float
-    @transactions = output_transactions_for(SKU)
+    @transactions = output_transactions_for_sku
     @transactions.each do |t|
       t[:amount] = t[:amount].to_f
     end
