@@ -3,18 +3,17 @@ require 'csv'
 require 'nokogiri'
 
 class SalesConverter
-  attr_accessor :rates, :transactions
+  attr_accessor :rates, :transactions 
 
-  def initialize(parsed_xml_file, parsed_csv_file)
+  def initialize(parsed_xml_file, parsed_csv_file, sku, wanted_conversion_rate)
     @rates = parsed_xml_file
     @transactions = parsed_csv_file
+    @sku = sku
+    @wanted_conversion_rate = wanted_conversion_rate
   end
 
-  SKU = :DM1182
-  WANTED_CONVERSION_RATE = :USD
-
   def output_transactions_for_sku
-    @transactions.find_all {|t| t[:sku] == SKU}
+    @transactions.find_all {|t| t[:sku] == @sku}
   end
 
   def convert_to_float

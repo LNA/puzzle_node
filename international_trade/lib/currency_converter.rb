@@ -8,8 +8,8 @@ class CurrencyConverter
     to = to.to_sym
     from = from.to_sym
 
-    if @rates[from][0] == to 
-      converstion_rate = @rates[from][1]
+    if @rates[from].has_key?(to)
+      converstion_rate = @rates[from][:CAD]
     else
       indirect_conversion(from, to)
     end
