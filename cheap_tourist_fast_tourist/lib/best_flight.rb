@@ -13,4 +13,8 @@ class BestFlight
     end
   end
 
+  def return_first_flight(file)
+    file = File.open(file, "rb")
+    contents = file.read
+  end
 end

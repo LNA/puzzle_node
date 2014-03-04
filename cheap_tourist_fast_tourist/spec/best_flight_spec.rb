@@ -7,7 +7,7 @@ describe "BestFlight" do
     best_flight.read_file
   end
 
-  it "returns the first line of flight info" do 
-    best_flight.return_first_flight('data/sample_input.txt').should ==    "A B 09:00 10:00 100.00"
+  it "returns the first line that starts with a letter and ends with a number" do 
+    best_flight.return_first_flight('data/sample_input.txt').should == "A B 09:00 10:00 100.00"
   end
 end
