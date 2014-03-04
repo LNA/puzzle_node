@@ -8,7 +8,7 @@ describe CurrencyConverter do
     currency_converter.conversion_rate("AUD", "CAD", []).should == [1.0079]
   end
 
-  it "idirectly converts AUD to USD" do 
+  it "indirectly converts AUD to USD" do 
     test_rates = {:AUD=> {:CAD=>1.0079}, :CAD=>{:USD => 1.0090}}
     currency_converter = CurrencyConverter.new(test_rates)
 
