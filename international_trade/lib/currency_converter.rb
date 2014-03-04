@@ -17,8 +17,6 @@ class CurrencyConverter
   end
 
   def indirect_conversion(from, to)
-    require 'pry'
-    binding.pry
-
+    # ?
   end
 end

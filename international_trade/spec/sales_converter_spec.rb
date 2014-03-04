@@ -9,6 +9,8 @@ describe "SalesConverter" do
   let (:sales_converter) {SalesConverter.new(parsed_xml_file, parsed_csv_file)}
 
   it "outputs transactions for USD" do 
+    require 'pry'
+    binding.pry
     sales_converter.output_transactions_for_sku.should == [{:store=>:Yonkers, :sku=>:DM1182, :amount=>"19.68", :currency=>:AUD}, 
                                                                 {:store=>:Nashua,  :sku=>:DM1182, :amount=>"58.58", :currency=>:AUD}, 
                                                                 {:store=>:Camden,  :sku=>:DM1182, :amount=>"54.64", :currency=>:USD}]
