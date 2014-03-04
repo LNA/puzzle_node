@@ -17,7 +17,7 @@ class CurrencyConverter
   end
 
   def indirect_conversion(from, to, partial_conversion_rates)
-    @middleman_conversion_country = @rates[:AUD].keys.first
+    @middleman_conversion_country = @rates[from].keys.first
 
     @rates.each do |rate|
       if rate[1].has_key?(@middleman_conversion_country)
