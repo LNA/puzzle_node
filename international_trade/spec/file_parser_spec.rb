@@ -1,7 +1,3 @@
-require 'file_parser'
-require 'csv'
-require 'nokogiri'
-
 describe FileParser do 
   let (:csv_parser) {FileParser.new}
   let (:xml_parser) {FileParser.new}
