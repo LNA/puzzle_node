@@ -1,23 +1,29 @@
 require 'currency_converter'
 
 describe CurrencyConverter do 
-  let (:transactions) {[{:store=>:Yonkers, :sku=>:DM1182, :amount=>"19.68", :currency=>:AUD}]}
+  let (:test_rates)  {{:AUD=> {:CAD=>1.0079}, :CAD=>{:USD => 1.0090}}}
 
-  it "returns 0.7439 to when converting from AUD to CAD" do 
-    test_rates = {:AUD => {:CAD => 1.0079} }
-    currency_converter = CurrencyConverter.new(test_rates, transactions)
+  let (:sample_transactions) {[{:store=>:Yonkers, :sku=>:DM1182, :amount=>"19.68", :currency=>:AUD},
+                               {:store=>:Nashua,  :sku=>:DM1182, :amount=>"58.58", :currency=>:AUD}, 
+                               {:store=>:Camden,  :sku=>:DM1182, :amount=>"54.64", :currency=>:USD}]}
 
-    currency_converter.conversion_rate("AUD", "CAD", []).should == [1.0079]
-  end
+  let (:currency_converter) {CurrencyConverter.new(test_rates, sample_transactions)}
+  let (:conversion_rate) {currency_converter.change_conversion_rate("AUD", "USD")}
 
   it "indirectly converts AUD to USD" do 
-    test_rates = {:AUD=> {:CAD=>1.0079}, :CAD=>{:USD => 1.0090}}
-    currency_converter = CurrencyConverter.new(test_rates, transactions)
-
-    currency_converter.conversion_rate("AUD", "USD", []).should == (1.0079 * 1.009)
+    conversion_rate.should == (1.0079 * 1.009)
   end
 
-  it "converts 19.68 AUD to 19.87 USD to 20.013991248" do 
-    currency_converter.convert(transactions, :AUD, :USD).should == 20.013991248 
+  it "converts all transactions from the sample file" do 
+    conversion_rate
+
+    currency_converter.multiply_total_by_conversion_rate.should == 135.15545919
+  end
+
+  it "returns 135.16 for 135.15545919" do 
+    conversion_rate 
+    currency_converter.multiply_total_by_conversion_rate
+
+    currency_converter.bankers_rounding.should == 135.16
   end
 end
