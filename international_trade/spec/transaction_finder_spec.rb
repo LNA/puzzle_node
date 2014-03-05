@@ -19,12 +19,4 @@ describe TransactionFinder do
                                                 {:store=>:Nashua, :sku=>:DM1182, :amount=>58.58, :currency=>:AUD}, 
                                                 {:store=>:Camden, :sku=>:DM1182, :amount=>54.64, :currency=>:USD}]
   end
-
-  it "returns the total sales for given sku" do 
-    sales_converter.total_sales_for_sku.should == "s"
-  end
-
-  it "returns s for s after bankers rounding" do 
-    sales_converter.bankers_rounding.should == "f"
-  end
 end
