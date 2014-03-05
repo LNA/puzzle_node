@@ -1,4 +1,6 @@
 require 'currency_converter'
+require 'file_parser'
+require 'transaction_finder'
 
 describe CurrencyConverter do 
   let (:test_rates)  {{:AUD=> {:CAD=>1.0079}, :CAD=>{:USD => 1.0090}}}
@@ -25,5 +27,20 @@ describe CurrencyConverter do
     currency_converter.multiply_total_by_conversion_rate
 
     currency_converter.bankers_rounding.should == 135.16
+  end
+
+  it "returns the number for the real file" do 
+    parser = FileParser.new
+    transactions = parser.parse_file_by_type('data/trans.csv')
+    rates = parser.parse_file_by_type('data/rates.xml')    
+
+    finder = TransactionFinder.new(transactions, :DM1182)
+    transactions_filtered_by_sku = finder.output_transactions_for_sku
+
+    currency_converter = CurrencyConverter.new(rates, transactions_filtered_by_sku)
+    currency_converter.change_conversion_rate("AUD", "USD")
+    currency_converter.multiply_total_by_conversion_rate
+
+    currency_converter.bankers_rounding.should ==  54803.0
   end
 end

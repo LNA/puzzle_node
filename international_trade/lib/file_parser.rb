@@ -1,4 +1,16 @@
+require 'csv'
+require 'nokogiri'
+
 class FileParser
+
+  def parse_file_by_type(file)
+    if file[-3] == "x"
+      parse_xml_rates(file)
+    else
+      parse_csv_transactions(file)
+    end
+  end
+
   def parse_xml_rates(file)
     @rates = {}
 
@@ -18,13 +30,5 @@ class FileParser
       @transactions << { store: row['store'].to_sym, sku: row['sku'].to_sym, amount: amount, currency: currency.to_sym }
     end
     @transactions
-  end
-
-   def parse_file_by_type(file)
-    if file[-3] == "x"
-      parse_xml_rates(file)
-    else
-      parse_csv_transactions(file)
-    end
   end
 end
