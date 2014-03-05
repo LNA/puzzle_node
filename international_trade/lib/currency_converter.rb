@@ -1,7 +1,9 @@
 class CurrencyConverter
-  def initialize(rates)
+  def initialize(rates, transactions_filted_by_sku)
     @rates = rates
+    @transactions_filted_by_sku = transactions_filted_by_sku
   end
+
 
   def conversion_rate(from, to, partial_conversion_rates)
     @partial_conversion_rates = partial_conversion_rates
