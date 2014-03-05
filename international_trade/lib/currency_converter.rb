@@ -36,8 +36,6 @@ class CurrencyConverter
   end
 
   def bankers_rounding
-    require 'pry'
-    binding.pry
     @total = @total * 1000
     remainder_of_ten = (@total % 5)
     @total = @total.to_i
