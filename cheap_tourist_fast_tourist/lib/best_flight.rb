@@ -5,16 +5,12 @@ class BestFlight
     @sales_input_file = sales_input_file
   end
 
-  def read_file
-    File.open(@sales_input_file, "r") do |f|
-      f.each_line do |line|
-        puts line
-      end
-    end
+  def return_flights(file)
+    file = File.readlines(file)
+    @matches = file.select { |flight| flight.length > 2 }
   end
 
-  def return_first_flight(file)
-    file = File.open(file, "rb")
-    contents = file.read
+  def split_data
+    @matches.map {|flight| flight.split(' ')}
   end
 end
