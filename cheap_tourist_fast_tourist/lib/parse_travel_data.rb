@@ -5,12 +5,12 @@ class ParseTravelData
     @file = file_to_parse
   end
 
-  def remove_extraneous_data(file)
-    file = File.readlines(file)
+  def remove_extraneous_data
+    file = File.readlines(@file)
     @flights = file.select { |flight| flight.length > 2 }
   end
 
   def split_travel_data
-    @flights = flights.map {|flight| flight.split(' ')}
+    @flights = @flights.map {|flight| flight.split(' ')}
   end
 end
