@@ -7,10 +7,8 @@ describe TripCreator do
   let (:creator) {TripCreator.new(test_data)}
 
   it "returns flights with attributes" do 
-    require 'pry'
-    binding.pry
     trips = creator.create_trips
-
+    
     trips.first.id.should == 1
   end
 end

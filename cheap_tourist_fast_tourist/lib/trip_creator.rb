@@ -12,8 +12,8 @@ class TripCreator
       trip = Trip.new
       trip.id = count
       trip.departure_city = itenerary[0]
-      trip. arrival_city = itenerary[1]
-      trip. departure_time = itenerary[2]
+      trip.arrival_city = itenerary[1]
+      trip.departure_time = itenerary[2]
       trip.arrival_time = itenerary[3]
       trip.price = itenerary[4].to_f
       @trips << trip

@@ -4,11 +4,6 @@ class TravelAgent
   end
 
   def order_trips_by_price
-    require 'pry'
-    binding.pry
-    @trips.sort {|a, b| a <=> b if a.price > b.price  }
-  end
-
-  def order_flights_by_length
+    trip_order_by_price = @trips.sort_by {|x| x.price}
   end
 end
