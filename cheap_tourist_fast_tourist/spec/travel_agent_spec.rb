@@ -7,17 +7,28 @@ describe TravelAgent do
   let (:trips) {TripCreator.new(test_data).create_trips}
   let (:agent) {TravelAgent.new(trips)}
 
-  it "returns the cheapest trip" do 
-    trip_order = agent.order_trips_by_price
-    first_trip = trip_order.first
+  context '#order_trips_by_price' do
+    it "returns the cheapest trip" do 
+      trip_order = agent.order_trips_by_price
+      first_trip = trip_order.first
 
-    first_trip.price.should == 75.0
+      first_trip.price.should == 75.0
+    end
+
+     it "returns the most expensive trip" do 
+      trip_order = agent.order_trips_by_price
+      last_trip = trip_order.last
+
+      last_trip.price.should == 250.0
+    end
   end
 
-   it "returns the most expensive trip" do 
-    trip_order = agent.order_trips_by_price
-    last_trip = trip_order.last
+  context '#order_trips_by_length' do 
+    it "returns the quickest_trip" do 
+      trip_order = agent.order_trips_by_length
+      first_trip = trip_order.first 
 
-    last_trip.price.should == 250.0
+      first_trip.should == "a"
+    end
   end
 end
