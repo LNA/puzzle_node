@@ -24,11 +24,18 @@ describe TravelAgent do
   end
 
   context '#order_trips_by_length' do 
-    it "returns the quickest_trip" do 
+    it "returns the quickest trip" do 
       trip_order = agent.order_trips_by_length
       first_trip = trip_order.first 
 
-      first_trip.should == "a"
+      first_trip.length.should == 3600.0
+    end
+
+    it "returns the slowest" do 
+      trip_order = agent.order_trips_by_length
+      first_trip = trip_order.last
+
+      first_trip.length.should == 5400.0
     end
   end
 end
