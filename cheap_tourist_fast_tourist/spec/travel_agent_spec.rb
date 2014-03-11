@@ -7,8 +7,7 @@ describe TravelAgent do
   let (:parser) {ParseTravelData.new('data/input.txt')}
 
   it "returns the cheapest flight" do
-    parsed_travel_itineraries = parser.remove_extraneous_data
-    parsed_travel_itineraries = parser.split_travel_data
+    parsed_travel_itineraries = parser.clean_data
     trips = TripCreator.new(parsed_travel_itineraries).create_trips
     flights = TravelAgent.new(trips).order_trips_by_price
 
@@ -16,8 +15,7 @@ describe TravelAgent do
   end
 
   it "returns the quickest flight" do
-    parsed_travel_itineraries = parser.remove_extraneous_data
-    parsed_travel_itineraries = parser.split_travel_data
+    parsed_travel_itineraries = parser.clean_data
     trips = TripCreator.new(parsed_travel_itineraries).create_trips
     flights = TravelAgent.new(trips).order_trips_by_length
 

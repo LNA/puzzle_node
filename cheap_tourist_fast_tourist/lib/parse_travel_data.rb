@@ -6,6 +6,11 @@ class ParseTravelData
     @file = file_to_parse
   end
 
+  def clean_data
+    remove_extraneous_data
+    split_travel_data
+  end
+
   def remove_extraneous_data
     file = File.readlines(@file)
     @flights = file.select { |flight| flight.length > 5 }
