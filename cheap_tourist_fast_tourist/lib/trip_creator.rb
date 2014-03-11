@@ -1,5 +1,6 @@
 require 'trip'
 require 'Time'
+
 class TripCreator
   def initialize(parsed_travel_itineraries)
     @parsed_travel_itineraries = parsed_travel_itineraries
@@ -11,7 +12,7 @@ class TripCreator
 
     @parsed_travel_itineraries.each do |itenerary| 
       trip = Trip.new
-      trip.id = count
+
       trip.length = Time.parse(itenerary[3]) - Time.parse(itenerary[2])
       trip.departure_city = itenerary[0]
       trip.arrival_city = itenerary[1]

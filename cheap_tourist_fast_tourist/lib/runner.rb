@@ -8,4 +8,3 @@ trip_creator.create_trips
 travel_agent = TravelAgent.new(trips)
 travel_agent.order_trips_by_price
 travel_agent.order_trips_by_time
-travel_agent.find_best_trip
