@@ -1,4 +1,5 @@
 require 'trip_creator'
+require 'trip'
 
 describe TripCreator do 
   let (:test_data)  {[["A", "B", "09:00", "10:00", "100.00"],
@@ -9,6 +10,6 @@ describe TripCreator do
   it "returns flights with attributes" do 
     trips = creator.create_trips
     
-    trips.first.id.should == 1
+    trips.first.should be_an_instance_of(Trip)
   end
 end
