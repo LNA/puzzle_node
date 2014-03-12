@@ -13,9 +13,8 @@ describe FirstOrderConnection do
   end
 
   it "returns albertas mutual mentions" do 
-    first_order_connection.tweets_involving("alberta")
-    
-
+    albertas_tweets = first_order_connection.tweets_involving("alberta")
+   
     first_order_connection.mutual_mentions_between("alberta", "bob").should == true
   end
 end
