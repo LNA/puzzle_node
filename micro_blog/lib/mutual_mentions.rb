@@ -18,7 +18,7 @@ class MutualMentions
     @tweets = tweets_string.split(' ')
   end
 
-  def users_tweeting_to_eachother?(first_users_tweets)
+  def users_tweeting_to_eachother?
     @tweets.include?("," + @second_user + ":") && @tweets.include?("@" + @first_user)
   end
 end

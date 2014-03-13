@@ -9,6 +9,6 @@ describe MutualMentions do
   end
 
   it "checks for a first level connection" do 
-    mutual_mentions.users_tweeting_to_eachother?(@albertas_tweets).should == true
+    mutual_mentions.users_tweeting_to_eachother?.should == true
   end
 end
