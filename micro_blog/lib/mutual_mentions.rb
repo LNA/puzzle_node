@@ -19,10 +19,6 @@ class MutualMentions
   end
 
   def users_tweeting_to_eachother?(first_users_tweets)
-    if @tweets.include?("," + @second_user + ":") && @tweets.include?("@" + @first_user)
-      true
-    else
-      false
-    end
+    @tweets.include?("," + @second_user + ":") && @tweets.include?("@" + @first_user)
   end
 end
