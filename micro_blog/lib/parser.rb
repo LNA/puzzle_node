@@ -5,14 +5,13 @@ class Parser
 
   def parse_tweets
     parse_file
-    parsed_tweets = @parsed_file.split("\n")
   end
 
   def parse_names
-    parse_file_down_to_individual_words
+    parse_file 
     @names = []
 
-    @file_broken_down_by_searchable_words.each do |word|
+    @parsed_file.each do |word|
       if word.match(/(@[a-zA-Z]+)/)
         @names << word.slice(/(@[a-zA-Z]+)/)
       end
@@ -23,12 +22,6 @@ class Parser
   private
 
   def parse_file
-    file = File.readlines(@file)
-    @parsed_file = file*","
-  end
-
-  def parse_file_down_to_individual_words
-    parse_file
-    @file_broken_down_by_searchable_words = @parsed_file.split(' ')
+    @parsed_file = File.readlines(@file)
   end
 end
