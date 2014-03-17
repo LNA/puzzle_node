@@ -1,5 +1,3 @@
-require 'user'
-
 class UserFactory
   attr_accessor :names, :users, :user
 

@@ -15,7 +15,7 @@ class TweetFactory
 
       tweet = Tweet.new
       tweet.sender = sender
-      tweet.receiver = receiver
+      tweet.receiver = receiver[/([a-zA-Z]+)/]
 
       @tweets << tweet 
     end

@@ -12,8 +12,8 @@ class Parser
     @names = []
 
     @parsed_file.each do |word|
-      if word.match(/(@[a-zA-Z]+)/)
-        @names << word.slice(/(@[a-zA-Z]+)/)
+      if word.match(/([a-zA-Z]+)/)
+        @names << word.slice(/([a-zA-Z]+)/)
       end
     end
     @names = @names.uniq.sort_by {|name| name.downcase }

@@ -8,6 +8,6 @@ describe Parser do
   end
 
   it "parses users twitter handles from a txt file" do 
-    tweet_parser.parse_names.should == ["@alberta", "@bob", "@christie", "@duncan", "@emily", "@farid"]
+    tweet_parser.parse_names.should == ["alberta", "bob", "christie", "duncan", "emily", "farid"]
   end
 end
