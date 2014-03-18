@@ -1,5 +1,6 @@
 require 'user'
 require 'tweet_factory'
+require 'tweet'
 
 describe User do 
   before :each do
@@ -15,16 +16,12 @@ describe User do
     @user.received(@test_tweets)
   end
 
-  it "has a name" do 
-    @user.name.should == "alberta"
-  end  
-
   it "returns 3 as the number of sent tweets" do 
-    @user.sent_tweets.count.should == 2
+    @user.tweets_sent.count.should == 2
   end
 
   it "returns 3 as the number of received tweets" do 
-    @user.received_tweets.count.should == 3
+    @user.tweets_received.count.should == 3
   end
 
   it "returns the names of users tweeted to" do 
@@ -38,15 +35,9 @@ describe User do
   it "returns the users interacting with" do 
     @user.users_tweeted_to
     @user.received_tweets_from
+    require 'pry'
+    binding.pry
 
-    @user.first_level_connections.should == ["bob", "christie"]
-  end
-
-  it "creates a connection hash" do 
-    @user.users_tweeted_to
-    @user.received_tweets_from
-    @user.first_level_connections
-
-    @user.connection_hash.should == {"alberta" => ["bob", "christie"]}
+    @user.mutual_mentions.should == ["bob", "christie"]
   end
 end

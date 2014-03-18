@@ -9,4 +9,6 @@ user = User.new(name)
 user.users_tweeted_to
 user.received_tweets_from
 
-user_first_level_connections = user.user_first_level_connections
+mutual_mentions = user.mutual_mentions
+
+connection_factory = ConnectionFactory.new(user, mutual_mentions)

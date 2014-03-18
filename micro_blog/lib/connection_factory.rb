@@ -1,20 +1,23 @@
 class ConnectionFactory
-  def initialize(mutual_mentions)
+  def initialize(user, mutual_mentions, user_2_mutual_mentions, user_3_mutual_mentions)
+    @user = user
     @mutual_mentions = mutual_mentions
-    @second_level_connections = {}
+    @user_2_mutual_mentions = user_2_mutual_mentions
+
   end
 
-  def second_level_connections(first_user, second_user)
-    second_level_connections = []
+  def connections
+    user_connections = {}
+    user_connections[@user] = { :mutual_mentions => @mutual_mentions }
+    user_connections 
+  end
 
-    @mutual_mentions[second_user].each do |value|
-      if @mutual_mentions[first_user].include?(value) && @mutual_mentions[second_user].include?(value)
-        @second_level_connections[first_user] = [second_user]
-        @second_level_connections[second_user] = [first_user]
+  def add_connection_level(user_connections)
+    @user_2_mutual_mentions.each do |friend|
+      if @user_2_mutual_mentions.include?(friend) && friend != @user_connections
+        user_connections[@user][:second_level_connections] = [friend] 
       end
     end
-    @second_level_connections
-    require 'pry'
-    binding.pry
+    user_connections
   end
 end
