@@ -8,6 +8,7 @@ describe User do
                    "alberta: hey @christie.\n",
                    "spambot: hey @alberta\n",
                    "christie: 'Every day' /cc @alberta, @bob\n"]
+
     @test_tweets = TweetFactory.new(test_tweets).create_tweets
     @user = User.new("alberta")
     @user.sent(@test_tweets)
@@ -38,6 +39,14 @@ describe User do
     @user.users_tweeted_to
     @user.received_tweets_from
 
-    @user.interacting_with.should == ["bob", "christie", "bob", "spambot", "christie"]
+    @user.first_level_connections.should == ["bob", "christie"]
+  end
+
+  it "creates a connection hash" do 
+    @user.users_tweeted_to
+    @user.received_tweets_from
+    @user.first_level_connections
+
+    @user.connection_hash.should == {"alberta" => ["bob", "christie"]}
   end
 end

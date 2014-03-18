@@ -23,9 +23,17 @@ class User
     @names_of_users_received_teweets_from.uniq
   end
 
-  def interacting_with
-    @names_of_users_interacting_with = []
-    @names_of_users_interacting_with << @names_of_users_tweeted_to << @names_of_users_received_teweets_from 
-    @names_of_users_interacting_with.flatten
+  def first_level_connections
+    @user_names = []
+    @user_names << @names_of_users_tweeted_to << @names_of_users_received_teweets_from 
+    @user_names = @user_names.flatten
+    @mutual_conversations_with = @user_names.select{ |element| @user_names.count(element) > 1 }
+    @mutual_conversations_with = @mutual_conversations_with.uniq
+  end
+
+  def connection_hash
+    first_level_connections = Hash.new
+    first_level_connections[@name] = @mutual_conversations_with
+    first_level_connections
   end
 end
