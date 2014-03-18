@@ -1,5 +1,5 @@
 class ConnectionFactory
-  def initialize(user, mutual_mentions, user_2_mutual_mentions, user_3_mutual_mentions)
+  def initialize(user, user_2, user_3)
     @user = user
     @mutual_mentions = mutual_mentions
     @user_2_mutual_mentions = user_2_mutual_mentions
