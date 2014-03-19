@@ -10,9 +10,9 @@ describe ConnectionFactory do
 
   it "creates a connection has for ava" do 
     factory.connections.should == { "ava" => {"level 1" =>["bob", "jim"]}, 
-                                                 "bob" => {"level 1" =>["ava", "ike"]}, 
-                                                 "ike" => {"level 1" =>["bob", "gia"]},
-                                                 "gia" => {"level 1" =>["ike"]}}
+                                    "bob" => {"level 1" =>["ava", "ike"]}, 
+                                    "ike" => {"level 1" =>["bob", "gia"]},
+                                    "gia" => {"level 1" =>["ike"]}}
   end
 
 
