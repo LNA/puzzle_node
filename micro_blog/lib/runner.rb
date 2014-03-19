@@ -1,10 +1,25 @@
-parser = Parser.new('data/sample_input.txt')
-names = parser.parse_names
-tweets = parser.parse_tweets
+require 'connection_factory'
+require 'mutual_mentions'
+require 'parser'
+require 'runner'
+require 'tweet'
+require 'tweet_factory'
+require 'user'
+require 'user_factory'
 
-users = UserFactory.new(names) 
+class Runner
+  parser = Parser.new('data/sample_input.txt')
+  names = parser.parse_names
+  parsed_tweets = parser.parse_tweets
 
-tweets = TweetFactory.new(tweets) 
-mutual_mentions = MutualMentions.new("ava", tweets )
+  user_factory = UserFactory.new(names, parsed_tweets) 
+  users = user_factory.create_users
 
-connection_factory = ConnectionFactory.new(user, mutual_mentions)
+  tweet_factory = TweetFactory.new(parsed_tweets) 
+  tweets = tweet_factory.create_tweets
+
+  mentions = MutualMentions.new("bob", tweets )
+  mentions.find_mutual_mentions
+
+  connection_factory = ConnectionFactory.new(users)
+end

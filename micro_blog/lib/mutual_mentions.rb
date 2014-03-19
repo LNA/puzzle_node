@@ -8,8 +8,8 @@ class MutualMentions
   end
 
   def find_mutual_mentions
-    sent 
-    received 
+    sent
+    received
     users_tweeted_to
     received_tweets_from
     mutual_mentions

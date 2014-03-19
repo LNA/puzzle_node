@@ -6,33 +6,31 @@ describe MutualMentions do
   before :each do
     test_tweets = ["ava: @bob \"remarkable.\"\n",
                    "bob: \"reads.\" /cc @ava\n",
-                   "ava: hey @christie.\n",
-                   "spambot: hey @ava\n",
-                   "christie: 'Every day' /cc @ava, @bob\n"]
+                   "spambot: hey @ava\n"]
 
     @test_tweets = TweetFactory.new(test_tweets).create_tweets
   end
 
   let (:mentions) { MutualMentions.new("ava", @test_tweets) }
 
-  it "returns 3 as the number of sent tweets" do 
-    mentions.sent.count.should == 2
+  it "returns 1 as the number of sent tweets" do 
+    mentions.sent.count.should == 1
   end
 
-  it "returns 3 as the number of received tweets" do 
-    mentions.received.count.should == 3
+  it "returns 2 as the number of received tweets" do 
+    mentions.received.count.should == 2
   end
 
   it "returns the names of users tweeted to" do 
     mentions.sent
 
-    mentions.users_tweeted_to.should == ["bob", "christie"]
+    mentions.users_tweeted_to.should == ["bob"]
   end
 
   it "returns the names of users tweeted from" do 
     mentions.received 
 
-    mentions.received_tweets_from.should == ["bob", "spambot", "christie"]
+    mentions.received_tweets_from.should == ["bob", "spambot"]
   end
 
 
@@ -42,6 +40,6 @@ describe MutualMentions do
     mentions.users_tweeted_to
     mentions.received_tweets_from
    
-   mentions.mutual_mentions.should == ["bob", "christie"]
+   mentions.mutual_mentions.should == ["bob"]
   end
 end
