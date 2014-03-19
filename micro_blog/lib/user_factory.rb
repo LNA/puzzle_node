@@ -10,7 +10,7 @@ class UserFactory
     @users = []
     
     @parsed_names.each do |name|
-      user = User.new(name)
+      user = User.new(name, MutualMentions.new(name, @parsed_tweets))
 
       user.name = name
       @users << user

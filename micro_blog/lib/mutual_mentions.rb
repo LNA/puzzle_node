@@ -7,6 +7,14 @@ class MutualMentions
     @mutual_mentions = []
   end
 
+  def find_mutual_mentions
+    sent 
+    received 
+    users_tweeted_to
+    received_tweets_from
+    mutual_mentions
+  end
+
   def sent
     @tweets_sent = @tweets.select {|tweet| tweet.sender == name }
   end
