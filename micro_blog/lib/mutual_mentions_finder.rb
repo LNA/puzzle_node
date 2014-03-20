@@ -24,8 +24,8 @@ class MutualMentionsFinder
       if tweet.receiver.include?(name)
         @tweets_received << tweet 
       end
-      @tweets_received 
     end
+    @tweets_received 
   end
 
   def users_tweeted_to

@@ -9,7 +9,8 @@ class UserConnections
     @user_connections = {}
 
     @users.each do |user|
-      @user_connections[user.name] = { "level 1" => mutual_mentions.mutual_mentions_for(user) }
+
+      @user_connections[user.name] = { "level 1" => @mutual_mentions.find_mutual_mentions_for(user) }
     end
     @user_connections 
   end
@@ -27,7 +28,7 @@ class UserConnections
 
   def check_for_another_level(user, connection, friend)
     count = 1
-    if (friend.mutual_mentions.mutual_mentions & connection["level #{count}"]) != [] 
+    if (@mutual_mentions.find_mutual_mentions_for(friend)  & connection["level #{count}"]) != [] 
       count += 1
       connection["level #{count}"] = [friend.name]
     else
