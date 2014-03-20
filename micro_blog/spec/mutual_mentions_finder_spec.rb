@@ -5,8 +5,8 @@ require 'user'
 
 describe MutualMentionsFinder do 
   before :each do
-    tweets = ["ava: @bob \"remarkable.\"\n",
-                   "bob: \"reads.\" /cc @ava @ike \n",
+    tweets = ["ava: \"remarkable.\"\n",
+                   "bob: \"reads.\" /cc @ike \n",
                    "ike: hey @bob @gia \n",
                    "gia: hey @ike\n"]
 
@@ -14,34 +14,66 @@ describe MutualMentionsFinder do
     @test_tweets  = tweets.map { |tweet| tweet_factory.create(tweet)}
     @ike = User.new("ike")
 
+    @mentions = MutualMentionsFinder.new(@test_tweets)
   end
 
-  let (:mentions) { MutualMentionsFinder.new(@test_tweets) }
+  context 'user with two mutual mentions' do 
+    it "returns 1 as the number of sent tweets" do 
+      @mentions.sent(@ike.name).count.should == 1
+    end
 
-  it "returns 1 as the number of sent tweets" do 
-    mentions.sent(@ike.name).count.should == 1
+    it "returns 2 as the number of received tweets" do 
+      @mentions.received(@ike.name)
+
+      @mentions.tweets_received.count.should == 2
+    end
+
+    it "returns the names of users tweeted to" do 
+      @mentions.sent(@ike.name)
+
+      @mentions.users_tweeted_to.should == ["bob", "gia"]
+    end
+
+    it "returns the names of users tweeted from" do 
+      @mentions.received(@ike.name)
+
+      @mentions.received_tweets_from.should == ["bob", "gia"]
+    end
+
+
+    it "finds the mutual mentions for user" do 
+      @mentions.find_mutual_mentions_for(@ike).should == ["bob", "gia"]
+    end
   end
 
-  it "returns 2 as the number of received tweets" do 
-    mentions.received(@ike.name)
+  context 'user with no mentions' do
+    let (:ava) { User.new("ava") }
 
-    mentions.tweets_received.count.should == 2
-  end
+    it "1 as the number of sent tweets" do 
+      @mentions.sent(ava.name).count.should == 1
+    end
 
-  it "returns the names of users tweeted to" do 
-    mentions.sent(@ike.name)
+    it "returns 0 as the number of received tweets" do 
+      @mentions.received(ava.name)
 
-    mentions.users_tweeted_to.should == ["bob", "gia"]
-  end
-
-  it "returns the names of users tweeted from" do 
-    mentions.received(@ike.name)
-
-    mentions.received_tweets_from.should == ["bob", "gia"]
-  end
+      @mentions.tweets_received.count.should == 0
+    end
 
 
-  it "finds the mutual mentions for user" do 
-   mentions.find_mutual_mentions_for(@ike).should == ["bob", "gia"]
+    it "returns the names of users tweeted to" do 
+      @mentions.sent(ava.name)
+
+      @mentions.users_tweeted_to.should == []
+    end
+
+    it "returns the names of users tweeted from" do 
+      @mentions.received(ava.name)
+
+      @mentions.received_tweets_from.should == [ ]
+    end
+
+    it "finds the mutual mentions for user" do 
+      @mentions.find_mutual_mentions_for(ava).should == [ ]
+    end
   end
 end

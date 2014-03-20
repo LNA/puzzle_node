@@ -29,6 +29,27 @@ describe UserConnections do
                                     "gia" => {"level 1" =>["ike"]}}
   end
 
+  it "creates connections when a user has no mutual mentions" do 
+     test_tweets = ["ava: \"remarkable.\"\n",
+                   "bob: \"reads.\" @ike \n",
+                   "ike: @bob \n"]
+                   
+
+    tweet_factory = TweetFactory.new
+    tweets = test_tweets.map { |tweet| tweet_factory.create(tweet)}
+
+    test_users = ["ava", "bob", "ike"]
+    
+    users = Users.new.create(test_users)
+
+    factory = UserConnections.new(users, tweets)
+
+    factory.connections.should == { "ava" => {"level 1" =>[]}, 
+                                    "bob" => {"level 1" =>["ike"]}, 
+                                    "ike" => {"level 1" =>["bob"]}}
+  end
+                                   
+
   it "has a second level connection" do 
     test_tweets = ["ava: @bob \"hi\"\n",
                    "bob: \"hi.\" @ava @ike \n",

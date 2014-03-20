@@ -1,4 +1,5 @@
 class UserConnections 
+  attr_accessor :users, :user_connections
 
   def initialize(users, tweets)
     @users = users
@@ -9,8 +10,11 @@ class UserConnections
     @user_connections = {}
 
     @users.each do |user|
-
-      @user_connections[user.name] = { "level 1" => @mutual_mentions.find_mutual_mentions_for(user) }
+      if @mutual_mentions.find_mutual_mentions_for(user) != []
+        @user_connections[user.name] = { "level 1" => @mutual_mentions.find_mutual_mentions_for(user) }
+      else
+        @user_connections[user.name] = { "level 1" => [] }
+      end
     end
     @user_connections 
   end
