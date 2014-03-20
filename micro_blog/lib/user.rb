@@ -1,8 +1,7 @@
 class User
-  attr_accessor :mutual_mentions, :name
+  attr_accessor :name
 
-  def initialize(name, tweets)
+  def initialize(name)
     @name = name
-    @mutual_mentions = MutualMentionsFactory.new(name, tweets)
   end
 end

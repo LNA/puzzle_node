@@ -1,25 +1,24 @@
-class MutualMentionsFactory
-  attr_accessor  :name, :tweets_received
+class MutualMentionsFinder 
+
+  attr_accessor  :tweets_received, :tweets
                 
-  def initialize(name, tweets)
-    @name = name
+  def initialize(tweets)
     @tweets = tweets 
-    @mutual_mentions = []
   end
 
-  def find_mutual_mentions
-    sent
-    received
+  def find_mutual_mentions_for(user)
+    sent(user.name)
+    received(user.name)
     users_tweeted_to
     received_tweets_from
     mutual_mentions
   end
 
-  def sent
+  def sent(name)
     @tweets_sent = @tweets.select {|tweet| tweet.sender == name }
   end
 
-  def received
+  def received(name)
     @tweets_received = []
     @tweets.each do |tweet|
       if tweet.receiver.include?(name)
@@ -40,6 +39,7 @@ class MutualMentionsFactory
   end
 
   def mutual_mentions
+    @mutual_mentions = []
     @mutual_mentions << @tweeted_to << @received_teweets_from 
     @mutual_mentions = @mutual_mentions.flatten
     @mutual_mentions = @mutual_mentions.select{ |element| @mutual_mentions.count(element) > 1 }

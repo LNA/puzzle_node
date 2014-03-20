@@ -1,22 +1,21 @@
-require 'connection_factory'
-require 'mutual_mentions_factory'
+require 'user_connections'
+require 'mutual_mentions_finder'
 require 'parser'
 require 'runner'
 require 'tweet'
 require 'tweet_factory'
 require 'user'
-require 'user_factory'
+require 'users'
 
 class Runner
   # parser = Parser.new('data/sample_input.txt')
   # names = parser.parse_names
   # parsed_tweets = parser.parse_tweets
 
-  # user_factory = UserFactory.new(names, parsed_tweets) 
-  # users = user_factory.create_users
+  # users = names.map { |name| User.new(name)}
 
-  # tweet_factory = TweetFactory.new(parsed_tweets) 
-  # tweets = tweet_factory.create_tweets
+  # tweet_factory = TweetFactory.new
+  # tweets = parsed_tweets.map { |pt| tweet_factory.create_tweet(pt)}
 
-  # connection_factory = ConnectionFactory.new(users)
+  # user_connections = UserConnections.new(users, tweets)
 end

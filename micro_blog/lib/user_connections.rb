@@ -1,14 +1,15 @@
-class ConnectionFactory
+class UserConnections 
 
-  def initialize(users)
+  def initialize(users, tweets)
     @users = users
+    @mutual_mentions = MutualMentionsFinder.new(tweets)
   end
 
   def connections
     @user_connections = {}
 
     @users.each do |user|
-      @user_connections[user.name] = { "level 1" => user.mutual_mentions.mutual_mentions }
+      @user_connections[user.name] = { "level 1" => mutual_mentions.mutual_mentions_for(user) }
     end
     @user_connections 
   end

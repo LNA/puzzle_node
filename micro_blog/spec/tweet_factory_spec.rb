@@ -6,16 +6,14 @@ describe TweetFactory do
                        "bob: \"reads.\" /cc @ava @ike\n",
                        "spambot: hey @ava\n"]}
 
-  let (:tweet_factory) {TweetFactory.new(test_tweets)}
+  let (:tweet_factory) {TweetFactory.new}
+  let (:tweets) { test_tweets.map { |tweet| tweet_factory.create(tweet)} }
 
   it "creates tweeets" do 
-    tweets = tweet_factory.create_tweets
-
     tweets.first.sender.should == "ava"
   end
 
   it "returns multiple receivers" do 
-    tweets = tweet_factory.create_tweets
     tweets.first.receiver.should == ["bob", "al"]
   end
 end
