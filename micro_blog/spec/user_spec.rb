@@ -1,23 +1,21 @@
-require 'user_factory'
 require 'user'
 require 'tweet_factory'
-require 'tweet'
 require 'mutual_mentions_factory'
+require 'tweet'
 
-describe UserFactory do 
+describe User do
+
   before :each do
     test_tweets = ["ava: @bob \"remarkable.\"\n",
                    "bob: \"reads.\" /cc @ava\n",
                    "spambot: hey @ava\n"]
 
     @test_tweets = TweetFactory.new(test_tweets).create_tweets
-    @test_users = ["ava", "bob", "spambot"]
-
   end
-  
-  it "creates users" do 
-    user_factory = UserFactory.new(@test_users, @test_tweets)
 
-    user_factory.create_users.count.should == 3
+  it "does something" do 
+    user = User.new("ava", @test_tweets)
+    
+    user.mutual_mentions.find_mutual_mentions.should == ["bob"]
   end
 end

@@ -1,15 +1,29 @@
 require 'connection_factory'
 require 'user'
+require 'tweet'
+require 'tweet_factory'
+require 'user_factory'
+require 'mutual_mentions_factory'
+require 'user_factory'
 
 describe ConnectionFactory do 
-  let(:ava) {User.new("ava", ["bob", "jim"] )}
-  let(:bob) {User.new("bob", ["ava", "ike"] )}
-  let(:ike) {User.new("ike", ["bob", "gia"] )}
-  let(:gia) {User.new("gia", ["ike"] )}
-  let(:factory) {ConnectionFactory.new([ava, bob, ike, gia])}
+   before :each do
+    test_tweets = ["ava: @bob \"remarkable.\"\n",
+                   "bob: \"reads.\" /cc @ava @ike \n",
+                   "ike: hey @bob @gia \n",
+                   "gia: hey @ike\n"]
+
+    @test_tweets = TweetFactory.new(test_tweets).create_tweets
+    @test_users = ["ava", "bob", "ike", "gia"]
+    
+    @user_factory = UserFactory.new(@test_users, @test_tweets)
+    @users = @user_factory.create_users
+  end
+ 
+  let(:factory) { ConnectionFactory.new(@users) }
 
   it "creates a connection has for ava" do 
-    factory.connections.should == { "ava" => {"level 1" =>["bob", "jim"]}, 
+    factory.connections.should == { "ava" => {"level 1" =>["bob"]}, 
                                     "bob" => {"level 1" =>["ava", "ike"]}, 
                                     "ike" => {"level 1" =>["bob", "gia"]},
                                     "gia" => {"level 1" =>["ike"]}}

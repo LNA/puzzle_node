@@ -1,4 +1,5 @@
 class ConnectionFactory
+
   def initialize(users)
     @users = users
   end
@@ -7,7 +8,7 @@ class ConnectionFactory
     @user_connections = {}
 
     @users.each do |user|
-      @user_connections[user.name] = { "level 1" => user.mutual_mentions }
+      @user_connections[user.name] = { "level 1" => user.mutual_mentions.mutual_mentions }
     end
     @user_connections 
   end
@@ -25,7 +26,7 @@ class ConnectionFactory
 
   def check_for_another_level(user, connection, friend)
     count = 1
-    if (friend.mutual_mentions & connection["level #{count}"]) != [] 
+    if (friend.mutual_mentions.mutual_mentions & connection["level #{count}"]) != [] 
       count += 1
       connection["level #{count}"] = [friend.name]
     else

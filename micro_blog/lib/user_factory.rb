@@ -10,10 +10,16 @@ class UserFactory
     @users = []
     
     @parsed_names.each do |name|
-      user = User.new(name, MutualMentions.new(name, @tweets))
-
-      user.name = name
+      user = User.new(name, @tweets)
       @users << user
+    end
+    @users
+    return_mutual_mentions
+  end
+
+  def return_mutual_mentions
+    @users.each do |user|
+      user.mutual_mentions.find_mutual_mentions
     end
     @users
   end

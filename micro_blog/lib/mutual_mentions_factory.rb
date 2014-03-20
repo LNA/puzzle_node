@@ -1,6 +1,6 @@
-class MutualMentions
-  attr_accessor :name, :names_of_users_tweeted_to, :tweets,
-                :tweets_received, :tweets_sent, :sender
+class MutualMentionsFactory
+  attr_accessor  :name, :tweets_received
+                
   def initialize(name, tweets)
     @name = name
     @tweets = tweets 
@@ -20,11 +20,17 @@ class MutualMentions
   end
 
   def received
-    @tweets_received = @tweets.select {|tweet| tweet.receiver == name}
+    @tweets_received = []
+    @tweets.each do |tweet|
+      if tweet.receiver.include?(name)
+        @tweets_received << tweet 
+      end
+      @tweets_received 
+    end
   end
 
   def users_tweeted_to
-    @tweeted_to = @tweets_sent.map {|tweet| tweet.receiver }
+    @tweeted_to = @tweets_sent.first.receiver
     @tweeted_to.uniq
   end 
 
