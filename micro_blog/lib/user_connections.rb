@@ -1,9 +1,9 @@
 class UserConnections 
   attr_accessor :users, :user_connections
 
-  def initialize(users, tweets)
+  def initialize(users, mutual_mentions)
     @users = users
-    @mutual_mentions = MutualMentionsFinder.new(tweets)
+    @mutual_mentions = mutual_mentions
   end
 
   def first_level_connections

@@ -17,8 +17,8 @@ class Runner
   tweet_factory = TweetFactory.new
   tweets = parsed_tweets.map { |parsed_tweet| tweet_factory.create(parsed_tweet)}
 
-  user_connections = UserConnections.new(users, tweets)
+  mutual_mentions = MutualMentionsFinder.new(tweets)
+  user_connections = UserConnections.new(users, mutual_mentions)
   user_connections.first_level_connections
   user_connections.add_connection_level
-
 end

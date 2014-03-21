@@ -13,14 +13,15 @@ describe UserConnections do
                    "gia: hey @ike\n"]
 
     tweet_factory = TweetFactory.new
-    @tweets = test_tweets.map { |tweet| tweet_factory.create(tweet)}
+    tweets = test_tweets.map { |tweet| tweet_factory.create(tweet)}
 
     @test_users = ["ava", "bob", "ike", "gia"]
     
     @users = Users.new.create(@test_users)
+    @mutual_mentions = MutualMentionsFinder.new(tweets)
   end
  
-  let(:factory) { UserConnections.new(@users, @tweets) }
+  let(:factory) { UserConnections.new(@users, @mutual_mentions) }
 
   it "creates a connection has for ava" do 
     factory.first_level_connections.should == { "ava" => {"level 1" =>["bob"]}, 
@@ -41,8 +42,9 @@ describe UserConnections do
     test_users = ["ava", "bob", "ike"]
     
     users = Users.new.create(test_users)
+    mutual_mentions = MutualMentionsFinder.new(tweets)
 
-    factory = UserConnections.new(users, tweets)
+    factory = UserConnections.new(users, mutual_mentions)
 
     factory.first_level_connections.should == { "ava" => {"level 1" =>[]}, 
                                     "bob" => {"level 1" =>["ike"]}, 
@@ -61,8 +63,9 @@ describe UserConnections do
     tweets = test_tweets.map { |tweet| tweet_factory.create(tweet)}
 
     users = Users.new.create(test_users)
+    mutual_mentions = MutualMentionsFinder.new(tweets)
 
-    two_level = UserConnections.new(users, tweets)
+    two_level = UserConnections.new(users, mutual_mentions)
 
     two_level.first_level_connections
     two_level.add_connection_level.should == {"ava"=>{"level 1"=>["bob"], 
