@@ -23,7 +23,7 @@ describe UserConnections do
   let(:factory) { UserConnections.new(@users, @tweets) }
 
   it "creates a connection has for ava" do 
-    factory.connections.should == { "ava" => {"level 1" =>["bob"]}, 
+    factory.first_level_connections.should == { "ava" => {"level 1" =>["bob"]}, 
                                     "bob" => {"level 1" =>["ava", "ike"]}, 
                                     "ike" => {"level 1" =>["bob", "gia"]},
                                     "gia" => {"level 1" =>["ike"]}}
@@ -44,7 +44,7 @@ describe UserConnections do
 
     factory = UserConnections.new(users, tweets)
 
-    factory.connections.should == { "ava" => {"level 1" =>[]}, 
+    factory.first_level_connections.should == { "ava" => {"level 1" =>[]}, 
                                     "bob" => {"level 1" =>["ike"]}, 
                                     "ike" => {"level 1" =>["bob"]}}
   end
@@ -64,7 +64,7 @@ describe UserConnections do
 
     two_level = UserConnections.new(users, tweets)
 
-    two_level.connections
+    two_level.first_level_connections
     two_level.add_connection_level.should == {"ava"=>{"level 1"=>["bob"], 
                                                       "level 2"=>["ike"]}, 
 
@@ -75,7 +75,7 @@ describe UserConnections do
   end
 
   it "returns a third level factory" do 
-    factory.connections
+    factory.first_level_connections
 
     factory.add_connection_level.should == {"ava"=>{"level 1" =>["bob"], 
                                                     "level 2" =>["ike"],

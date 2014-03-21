@@ -18,7 +18,7 @@ class Runner
   tweets = parsed_tweets.map { |parsed_tweet| tweet_factory.create(parsed_tweet)}
 
   user_connections = UserConnections.new(users, tweets)
-  user_connections.connections
+  user_connections.first_level_connections
   user_connections.add_connection_level
 
 end

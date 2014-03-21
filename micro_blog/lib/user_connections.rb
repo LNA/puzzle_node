@@ -6,7 +6,7 @@ class UserConnections
     @mutual_mentions = MutualMentionsFinder.new(tweets)
   end
 
-  def connections
+  def first_level_connections
     @user_connections = {}
 
     @users.each do |user|
