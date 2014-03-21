@@ -21,11 +21,7 @@ class UserConnections
 
   def add_connection_level
     @user_connections.each_pair do |user, connection|
-      @users.each do |friend|
-        if connection["level 1"].include?(friend.name) == false && user != friend.name
-          check_for_another_level(user, connection, friend)
-        end
-      end
+      check(user, connection)
     end
     @user_connections
   end
@@ -38,6 +34,14 @@ class UserConnections
     else
       count += 2
       connection["level #{count}"] = [friend.name]
+    end
+  end
+
+  def check(user, connection)
+    @users.each do |friend|
+      if connection["level 1"].include?(friend.name) == false && user != friend.name
+        check_for_another_level(user, connection, friend)
+      end
     end
   end
 end
