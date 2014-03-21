@@ -1,6 +1,5 @@
 class MutualMentionsFinder 
-
-  attr_accessor  :tweets_received, :tweets
+  attr_accessor  :tweets, :tweets_received
                 
   def initialize(tweets)
     @tweets = tweets 
@@ -14,6 +13,7 @@ class MutualMentionsFinder
     mutual_mentions
   end
 
+private 
   def sent(name)
     @tweets_sent = @tweets.select {|tweet| tweet.sender == name }
   end
