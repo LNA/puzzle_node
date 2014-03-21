@@ -1,5 +1,5 @@
-require 'users'
 require 'user'
+require 'users'
 
 describe Users do 
   let (:test_users) { ["ava", "bob"] }
