@@ -1,5 +1,5 @@
-require 'tweet_factory'
 require 'tweet'
+require 'tweet_factory'
 
 describe TweetFactory do 
   let (:test_tweets) {["ava: @bob @al\"remarkable.\"\n",
