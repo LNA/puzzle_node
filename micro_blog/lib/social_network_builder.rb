@@ -21,10 +21,8 @@ class SocialNetworkBuilder
   mutual_mentions = MutualMentionsFinder.new(tweets)
   user_connections = UserConnections.new(users, mutual_mentions)
   user_connections.first_level_connections
-  user_connections.add_connection_level
-  puts user_connections.add_connection_level
+  puts user_connections.find_connection_level
   end
 end
-
 builder = SocialNetworkBuilder.new
 builder.run

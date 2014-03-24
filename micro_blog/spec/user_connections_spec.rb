@@ -68,7 +68,7 @@ describe UserConnections do
     two_level = UserConnections.new(users, mutual_mentions)
 
     two_level.first_level_connections
-    two_level.add_connection_level.should == {"ava"=>{"level 1"=>["bob"], 
+    two_level.find_connection_level.should == {"ava"=>{"level 1"=>["bob"], 
                                                       "level 2"=>["ike"]}, 
 
                                               "bob"=>{"level 1"=>["ava", "ike"]}, 
@@ -80,7 +80,7 @@ describe UserConnections do
   it "returns a third level factory" do 
     factory.first_level_connections
 
-    factory.add_connection_level.should == {"ava"=>{"level 1" =>["bob"], 
+    factory.find_connection_level.should == {"ava"=>{"level 1" =>["bob"], 
                                                     "level 2" =>["ike"],
                                                     "level 3" =>["gia"]}, 
 

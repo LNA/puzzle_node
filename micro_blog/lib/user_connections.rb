@@ -19,7 +19,7 @@ class UserConnections
     @user_connections 
   end
 
-  def add_connection_level
+  def find_connection_level
     @user_connections.each_pair do |user, connection|
       check(user, connection)
     end
