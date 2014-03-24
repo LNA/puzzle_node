@@ -30,7 +30,7 @@ class UserConnections
 
   def check_for_another_level(user, connection, friend)
     count = 1
-    if (@mutual_mentions.find_mutual_mentions_for(friend)  & connection["level #{count}"]) != [] 
+    if (@mutual_mentions.find_mutual_mentions_for(friend) & connection["level #{count}"]) != [] 
       count += 1
       connection["level #{count}"] = [friend.name]
     else

@@ -1,13 +1,14 @@
-require 'user_connections'
+$: << File.expand_path(File.dirname(__FILE__))
 require 'mutual_mentions_finder'
 require 'parser'
-require 'runner'
 require 'tweet'
 require 'tweet_factory'
 require 'user'
 require 'users'
+require 'user_connections'
 
-class Runner
+class SocialNetworkBuilder
+  def run
   parser = Parser.new('data/complete_input.txt')
   names = parser.parse_names
   parsed_tweets = parser.parse_tweets
@@ -21,4 +22,9 @@ class Runner
   user_connections = UserConnections.new(users, mutual_mentions)
   user_connections.first_level_connections
   user_connections.add_connection_level
+  puts user_connections.add_connection_level
+  end
 end
+
+builder = SocialNetworkBuilder.new
+builder.run
