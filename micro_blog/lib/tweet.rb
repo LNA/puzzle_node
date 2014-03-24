@@ -1,7 +1,7 @@
 class Tweet
-  attr_accessor :sender, :receiver
-  def initialize(sender, receiver)
+  attr_accessor :sender, :receivers
+  def initialize(sender, receivers)
     @sender = sender 
-    @receiver = receiver 
+    @receivers = receivers 
   end
 end

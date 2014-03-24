@@ -10,6 +10,5 @@ require 'users'
 describe SocialNetworkBuilder do 
   it "runs" do 
   runner = SocialNetworkBuilder.new
-  
   end
 end

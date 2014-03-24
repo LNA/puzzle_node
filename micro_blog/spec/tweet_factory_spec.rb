@@ -14,6 +14,6 @@ describe TweetFactory do
   end
 
   it "returns multiple receivers" do 
-    tweets.first.receiver.should == ["bob", "al"]
+    tweets.first.receivers.should == ["bob", "al"]
   end
 end

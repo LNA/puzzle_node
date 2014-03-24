@@ -21,7 +21,7 @@ private
   def received(name)
     @tweets_received = []
     @tweets.each do |tweet|
-      if tweet.receiver.include?(name)
+      if tweet.receivers.include?(name)
         @tweets_received << tweet 
       end
     end
@@ -29,7 +29,7 @@ private
   end
 
   def users_tweeted_to
-    @tweeted_to = @tweets_sent.first.receiver
+    @tweeted_to = @tweets_sent.first.receivers
     @tweeted_to.uniq
   end 
 
