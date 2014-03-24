@@ -3,23 +3,17 @@ class Parser
     @file = file
   end
 
-  def parse_tweets
-    parse_file
+  def parse_file
+    @parsed_file = File.readlines(@file)
   end
 
   def parse_names
-    parse_file 
     @names = []
 
-    @parsed_file.each do |word|
-      @names << word.split(':').first
+    @parsed_file.each do |tweet|
+      @names << tweet.split(':').first
     end
     @names = @names.uniq.sort_by {|name| name.downcase }
   end
 
-  private
-
-  def parse_file
-    @parsed_file = File.readlines(@file)
-  end
 end

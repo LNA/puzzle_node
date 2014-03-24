@@ -10,8 +10,9 @@ require 'user_connections'
 class SocialNetworkBuilder
   def run
   parser = Parser.new('data/complete_input.txt')
+  parsed_tweets = parser.parse_file
+
   names = parser.parse_names
-  parsed_tweets = parser.parse_tweets
 
   users = names.map { |name| User.new(name)}
 
