@@ -9,7 +9,7 @@ describe Parser do
   end
 
   it "parses tweets" do 
-    @parsed_file.count.should == 13
+    @parsed_file.first.should == "alberta: @bob \"It is remarkable, the character of the pleasure we derive from the best books.\"\n"
   end
 
   it "parses users twitter handles from a txt file" do 
