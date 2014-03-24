@@ -24,10 +24,7 @@ describe UserConnections do
   let(:factory) { UserConnections.new(@users, @mutual_mentions) }
 
   it "creates a connection has for ava" do 
-    factory.first_level_connections.should == { "ava" => {"level 1" =>["bob"]}, 
-                                    "bob" => {"level 1" =>["ava", "ike"]}, 
-                                    "ike" => {"level 1" =>["bob", "gia"]},
-                                    "gia" => {"level 1" =>["ike"]}}
+    factory.first_level_connections.keys.should == @test_users
   end
 
   it "does not creates connections when a user has no mutual mentions" do 
