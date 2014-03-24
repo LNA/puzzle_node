@@ -12,8 +12,6 @@ class UserConnections
     @users.each do |user|
       if @mutual_mentions.find_mutual_mentions_for(user) != []
         @user_connections[user.name] = { "level 1" => @mutual_mentions.find_mutual_mentions_for(user) }
-      else
-        @user_connections[user.name] = { "level 1" => [] }
       end
     end
     @user_connections 

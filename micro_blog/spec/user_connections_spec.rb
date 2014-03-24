@@ -30,7 +30,7 @@ describe UserConnections do
                                     "gia" => {"level 1" =>["ike"]}}
   end
 
-  it "creates connections when a user has no mutual mentions" do 
+  it "does not creates connections when a user has no mutual mentions" do 
      test_tweets = ["ava: \"remarkable.\"\n",
                    "bob: \"reads.\" @ike \n",
                    "ike: @bob \n"]
@@ -46,9 +46,8 @@ describe UserConnections do
 
     factory = UserConnections.new(users, mutual_mentions)
 
-    factory.first_level_connections.should == { "ava" => {"level 1" =>[]}, 
-                                    "bob" => {"level 1" =>["ike"]}, 
-                                    "ike" => {"level 1" =>["bob"]}}
+    factory.first_level_connections.keys.should == ["bob", "ike"]
+
   end
                                    
 
@@ -68,30 +67,12 @@ describe UserConnections do
     two_level = UserConnections.new(users, mutual_mentions)
 
     two_level.first_level_connections
-    two_level.find_connection_level.should == {"ava"=>{"level 1"=>["bob"], 
-                                                      "level 2"=>["ike"]}, 
-
-                                              "bob"=>{"level 1"=>["ava", "ike"]}, 
-                                              "ike"=>{"level 1"=>["bob"], 
-
-                                                      "level 2"=>["ava"]}}
+    two_level.find_connection_level["ava"]["level 2"].should == ["ike"]
   end
 
   it "returns a third level factory" do 
     factory.first_level_connections
 
-    factory.find_connection_level.should == {"ava"=>{"level 1" =>["bob"], 
-                                                    "level 2" =>["ike"],
-                                                    "level 3" =>["gia"]}, 
-
-                                            "bob"=>{"level 1" =>["ava", "ike"],
-                                                    "level 2" =>["gia"]}, 
-
-                                            "ike"=>{"level 1" =>["bob", "gia"], 
-                                                    "level 2" =>["ava"]},
-
-                                            "gia"=>{"level 1"=>["ike"], 
-                                                    "level 2"=>["bob"], 
-                                                    "level 3"=>["ava"]} } 
+    factory.find_connection_level["ava"]["level 3"].should == ["gia"]
   end
 end
