@@ -27,10 +27,10 @@ describe UserConnections do
     factory.first_level_connections.keys.should == @test_users
   end
 
-  it "does not creates connections when a user has no mutual mentions" do 
+  it "does not create connections when a user has no mutual mentions" do 
      test_tweets = ["ava: \"remarkable.\"\n",
                    "bob: \"reads.\" @ike \n",
-                   "ike: @bob \n"]
+                   "ike: @ava, @bob \n",]
                    
 
     tweet_factory = TweetFactory.new
