@@ -1,9 +1,8 @@
-require 'user_connections'
-require 'user'
+require 'mutual_mentions_finder'
 require 'tweet'
 require 'tweet_factory'
-require 'users'
-require 'mutual_mentions_finder'
+require 'user'
+require 'user_connections'
 
 describe UserConnections do 
    before :each do
